@@ -4,6 +4,17 @@ Metaphor
 From the Greek: μεταφορά - metaphora, meaning "transfer"
 
 
+Rationale
+---------
+
+As programmers an awful lot of what we do revolves around taking an
+input, doing something to it, and sending the result somewhere. Quite a
+bit of time is wasted writing the "glue" that transfers the results from
+one place to the next. Metaphor aims to provide a standardised and easy
+to use way of passing results, leaving you to concentrate on the bit
+that's important - the business logic.
+
+
 Running Metaphor
 ----------------
 
