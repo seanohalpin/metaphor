@@ -32,7 +32,7 @@ Programming with Metaphor
     metaphor.processors << Foo.new
     metaphor.processors << Bar.new
     metaphor.processors << Baz.new
-    metaphor.processors << StdoutProcessor.new
+    metaphor.processors << Metaphor::Processor::StdoutProcessor.new
 
     # Process one message
     metaphor.process(headers, body) # => [ new_headers, new_body ]

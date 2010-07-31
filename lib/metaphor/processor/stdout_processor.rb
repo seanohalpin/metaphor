@@ -1,5 +1,5 @@
 class Metaphor
-  module Processors
+  module Processor
     class StdoutProcessor
       def initialize(target = STDOUT)
         @target = target
