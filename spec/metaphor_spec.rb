@@ -55,5 +55,27 @@ describe Metaphor do
         m.process [], ""        
       end
     end
+
+    describe "if a processor returns any other value" do
+      def generic_processor(return_value, message)
+        @count ||= 0
+        @count += 1
+        processor = stub_everything("Generic Processor #{@count}")
+        processor.expects(:process).once.with(*message).returns(return_value)
+        processor
+      end
+
+      it "passes them to the next processor" do
+        m = Metaphor.new
+        message = [ [], "body" ]
+        
+        m.processors << generic_processor(nil, message)
+        m.processors << generic_processor(true, message)
+        m.processors << generic_processor("maybe", message)
+        m.processors << generic_processor(12345, message)
+        m.processors << generic_processor(Object.new, message)
+        m.process *message
+      end
+    end
   end
 end
