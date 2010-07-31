@@ -29,7 +29,7 @@ Use from the command line:
 The last argument here is for the input source.
 
 If a full path is not given for processors, metaphor will look in
-lib/processor for a file called eg lib/processor/stdout_processor.rb.
+lib/metaphor/processor for a file called eg stdout_processor.rb.
 Processors are run in the order that they are defined on the command
 line.
 
