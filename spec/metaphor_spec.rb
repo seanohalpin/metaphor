@@ -41,5 +41,19 @@ describe Metaphor do
         m.process [], ""        
       end
     end
+
+    describe "if a processor returns [new_headers, new_body]" do
+      it "passes them to the next processor" do
+        m = Metaphor.new
+        new_message = [ [], "new body" ]
+        processor_a = stub_everything('Mutating Processor')
+        processor_a.expects(:process).once.returns(new_message)
+        processor_b = stub_everything('Next Processor')
+        processor_b.expects(:process).once.with(*new_message)
+        m.processors << processor_a
+        m.processors << processor_b
+        m.process [], ""        
+      end
+    end
   end
 end
