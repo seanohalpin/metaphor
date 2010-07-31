@@ -6,9 +6,13 @@ class Metaphor
     self.processors = []
   end
 
-  def process(headers, message)
+  def process(headers, body)
     processors.each do |processor|
-      processor.process headers, message
+      processor_output = processor.process(headers, body)
+      case processor_output
+      when FalseClass
+        return
+      end
     end
   end
 end

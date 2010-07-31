@@ -28,5 +28,18 @@ describe Metaphor do
       received_b.should_not be_nil
       (received_a < received_b).should be_true
     end
+
+    describe "if a processor returns a boolean false" do
+      it "stops processing the message and discards it" do
+        m = Metaphor.new
+        processor_a = stub_everything('Halting Processor')
+        processor_a.expects(:process).once.returns(false)
+        processor_b = stub_everything('Unreachable Processor')
+        processor_b.expects(:process).never
+        m.processors << processor_a
+        m.processors << processor_b
+        m.process [], ""        
+      end
+    end
   end
 end
