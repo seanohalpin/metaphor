@@ -20,7 +20,7 @@ describe Metaphor do
       processor_b = TimestampProcessor.new
       m.processors << processor_a
       m.processors << processor_b
-      m.process [], ""
+      m.process({}, "")
 
       received_a = processor_a.received_message_at
       received_a.should_not be_nil
@@ -38,7 +38,7 @@ describe Metaphor do
         processor_b.expects(:process).never
         m.processors << processor_a
         m.processors << processor_b
-        m.process [], ""
+        m.process({}, "")
       end
     end
 
@@ -52,7 +52,7 @@ describe Metaphor do
         processor_b.expects(:process).once.with(*new_message)
         m.processors << processor_a
         m.processors << processor_b
-        m.process [], ""
+        m.process({}, "")
       end
     end
 
