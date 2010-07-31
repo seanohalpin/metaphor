@@ -38,7 +38,7 @@ describe Metaphor do
         processor_b.expects(:process).never
         m.processors << processor_a
         m.processors << processor_b
-        m.process [], ""        
+        m.process [], ""
       end
     end
 
@@ -52,7 +52,7 @@ describe Metaphor do
         processor_b.expects(:process).once.with(*new_message)
         m.processors << processor_a
         m.processors << processor_b
-        m.process [], ""        
+        m.process [], ""
       end
     end
 
@@ -68,7 +68,6 @@ describe Metaphor do
       it "passes them to the next processor" do
         m = Metaphor.new
         message = [ [], "body" ]
-        
         m.processors << generic_processor(nil, message)
         m.processors << generic_processor(true, message)
         m.processors << generic_processor("maybe", message)
