@@ -1,33 +1,31 @@
-# Look in the tasks/setup.rb file for the various options that can be
-# configured in this Rakefile. The .rake files in the tasks directory
-# are where the options are used.
+require 'rake'
+require 'spec/rake/spectask'
+require 'spec/rake/verify_rcov'
 
-begin
-  require 'bones'
-  Bones.setup
-rescue LoadError
-  begin
-    load 'tasks/setup.rb'
-  rescue LoadError
-    raise RuntimeError, '### please install the "bones" gem ###'
-  end
+coverage_data = "coverage.data"
+
+Spec::Rake::SpecTask.new do |t|
+  t.ruby_opts = [ '-I lib', '-I spec' ]
+  t.spec_opts = [
+    "--colour",
+    "--format", "progress",
+    "--loadby", "mtime",
+    "--reverse",
+    "--format", "html:coverage/index.html"
+  ]
+  t.spec_files = FileList['spec/**/*_spec.rb']
+  t.rcov = true
+  t.rcov_opts =  %W(--exclude gems/,spec/,features/ )
+  t.rcov_opts += %W(--aggregate #{coverage_data})
+  t.rcov_opts += %W(-o coverage)
 end
 
-ensure_in_path 'lib'
-require 'metaphor'
+task :clear_coverage_data do
+  File.unlink(coverage_data) if File.exists?(coverage_data)
+end
 
-task :default => 'spec:run'
+RCov::VerifyTask.new(:verify_rcov => [ :clear_coverage_data, :spec ]) do |t|
+  t.threshold = 100.0
+end
 
-PROJ.name = 'metaphor'
-PROJ.authors = ["Sean O'Halpin"]
-PROJ.email = 'sean.ohalpin@gmail.com'
-PROJ.url = 'FIXME (project homepage)'
-PROJ.version = Metaphor::VERSION
-PROJ.rubyforge.name = 'metaphor'
-
-PROJ.spec.opts << '--color'
-
-PROJ.exclude = %w(tmp$ bak$ ~$ CVS \.svn ^pkg ^doc \.git)
-PROJ.exclude << '^tags$'
-
-# EOF
+task :default => :verify_rcov

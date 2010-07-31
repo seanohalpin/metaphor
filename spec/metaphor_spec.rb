@@ -1,7 +1,7 @@
-
-require File.join(File.dirname(__FILE__), %w[spec_helper])
+require 'spec_helper'
 
 describe Metaphor do
+  it "is version 0.1.0" do
+    Metaphor::VERSION.should eql('0.1.0')
+  end
 end
-
-# EOF

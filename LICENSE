@@ -1,32 +1,7 @@
-metaphor
-    by Sean O'Halpin
-    FIXME (url)
-
-== DESCRIPTION:
-
-FIXME (describe your package)
-
-== FEATURES/PROBLEMS:
-
-* FIXME (list of features or problems)
-
-== SYNOPSIS:
-
-  FIXME (code sample of usage)
-
-== REQUIREMENTS:
-
-* FIXME (list of requirements)
-
-== INSTALL:
-
-* FIXME (sudo gem install, anything else)
-
-== LICENSE:
-
-(The MIT License)
+The MIT License
 
 Copyright (c) 2009 Sean O'Halpin
+Copyright (c) 2010 Craig R Webster <http://barkingiguana.com/>
 
 Permission is hereby granted, free of charge, to any person obtaining
 a copy of this software and associated documentation files (the
