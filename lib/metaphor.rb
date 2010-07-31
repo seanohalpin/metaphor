@@ -5,4 +5,10 @@ class Metaphor
   def initialize
     self.processors = []
   end
+
+  def process(headers, message)
+    processors.each do |processor|
+      processor.process headers, message
+    end
+  end
 end
