@@ -77,4 +77,19 @@ describe Metaphor do
       end
     end
   end
+
+  describe "reading messages from an input" do
+    it "passes them to the processors until the input returns nil" do
+      m = Metaphor.new
+      m1 = [ { 'message-id' => 1 }, "message 1" ]
+      m2 = [ { 'message-id' => 2 }, "message 2" ]
+      processor = stub_everything('Processor')
+      processor.expects(:process).once.with(*m1)
+      processor.expects(:process).once.with(*m2)
+      m.processors << processor
+      input = stub_everything('Input')
+      input.expects(:get).times(3).returns(m1, m2, nil)
+      m.process(input)
+    end
+  end
 end

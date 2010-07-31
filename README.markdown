@@ -38,7 +38,8 @@ Programming with Metaphor
     metaphor.process(headers, body) # => [ new_headers, new_body ]
                                     # => false (if halted by processor)
 
-    # Process messages from this class until the Ruby VM is killed
+    # Process messages from this class until the Ruby VM is killed or the
+    # input returns nil
     metaphor.process(StdinInput.new)
 
 

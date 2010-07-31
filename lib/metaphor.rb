@@ -6,7 +6,19 @@ class Metaphor
     self.processors = []
   end
 
-  def process(headers, body)
+  def process(*args)
+    case args.size
+    when 1
+      while message = args.first.get
+        process_message(*message)
+      end
+    when 2
+      process_message(*args)
+    end
+  end
+
+  private
+  def process_message(headers, body)
     processors.each do |processor|
       processor_output = processor.process(headers, body)
       case
