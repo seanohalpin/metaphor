@@ -6,8 +6,12 @@ class Metaphor
       end
 
       def process(headers, body)
-        @target.puts "HEADERS: #{headers.inspect}"
-        @target.puts "BODY   : #{body.inspect}"
+        headers.each_pair do |header, value|
+          @target.puts "#{header}:#{value}"
+        end
+        @target.puts
+        @target.puts body
+        @target.puts
       end
     end
   end
