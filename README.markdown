@@ -77,9 +77,10 @@ Classes used as processors must respond to #process(headers, body):
     end
 
 The return value of #process control what happens to the message. If the
-proccesor returns:
+processor returns:
+
   * An array of headers and the message body
-    - they passed to the next processor
+    - they are passed to the next processor
   * Boolean false (or something that is === to it)
     - Metaphor stops processing this message and discards it
   * Any other value that is not false
