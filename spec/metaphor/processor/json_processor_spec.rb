@@ -8,6 +8,7 @@ describe Metaphor::Processor::JsonProcessor do
       hash = { 'a' => 1, 'b' => 2, 'c' => 3 }
       headers, json = m.process({}, hash)
       json.should == '{"a":1,"b":2,"c":3}'
+      headers['content-type'].should == 'application/json'
     end
   end
 
@@ -16,5 +17,6 @@ describe Metaphor::Processor::JsonProcessor do
     json = '{"a":1,"b":2,"c":3}'
     headers, json = m.process({}, json)
     json.should == { 'a' => 1, 'b' => 2, 'c' => 3 }
+    headers['content-type'].should == 'application/x-ruby'
   end
 end
