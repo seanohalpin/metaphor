@@ -35,7 +35,7 @@ describe Metaphor do
         processor_b.expects(:process).never
         m.processors << processor_a
         m.processors << processor_b
-        m.process({}, "")
+        m.process({}, "").should be_false
       end
     end
 
@@ -49,7 +49,7 @@ describe Metaphor do
         processor_b.expects(:process).once.with(*new_message)
         m.processors << processor_a
         m.processors << processor_b
-        m.process({}, "")
+        m.process({}, "").should == new_message
       end
     end
 
@@ -70,7 +70,7 @@ describe Metaphor do
         m.processors << generic_processor("maybe", message)
         m.processors << generic_processor(12345, message)
         m.processors << generic_processor(Object.new, message)
-        m.process *message
+        m.process(*message).should == message
       end
     end
   end

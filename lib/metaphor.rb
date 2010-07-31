@@ -23,10 +23,11 @@ class Metaphor
       processor_output = processor.process(headers, body)
       case
       when processor_output === false
-        return
+        return false
       when processor_output.respond_to?(:size) && processor_output.size == 2
         headers, body = processor_output
       end
     end
+    [ headers, body ]
   end
 end
