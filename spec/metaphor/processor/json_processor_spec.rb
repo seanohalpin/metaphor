@@ -6,7 +6,7 @@ describe Metaphor::Processor::JsonProcessor do
     it "converts it to the equivalent JSON hash" do
       m = Metaphor::Processor::JsonProcessor.new
       hash = { 'a' => 1, 'b' => 2, 'c' => 3 }
-      headers, json = m.process({}, hash)
+      headers, json = m.call({}, hash)
       json.should == '{"a":1,"b":2,"c":3}'
       headers['content-type'].should == 'application/json'
     end
@@ -15,7 +15,7 @@ describe Metaphor::Processor::JsonProcessor do
   describe "processing a JSON Hash" do
     m = Metaphor::Processor::JsonProcessor.new
     json = '{"a":1,"b":2,"c":3}'
-    headers, json = m.process({}, json)
+    headers, json = m.call({}, json)
     json.should == { 'a' => 1, 'b' => 2, 'c' => 3 }
     headers['content-type'].should == 'application/x-ruby'
   end

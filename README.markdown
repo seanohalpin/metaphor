@@ -36,6 +36,7 @@ line.
 If you are writing your own processors, check out the Programming with
 Metaphor section below.
 
+
 Programming with Metaphor
 -------------------------
 
@@ -46,12 +47,12 @@ Programming with Metaphor
     metaphor.processors << Metaphor::Processor::PrintMessage.new
 
     # Process one message
-    metaphor.process(headers, body) # => [ new_headers, new_body ]
-                                    # => false (if halted by processor)
+    metaphor.call(headers, body) # => [ new_headers, new_body ]
+                                 # => false (if halted by processor)
 
     # Process messages from this class until the Ruby VM is killed or the
     # input returns nil
-    metaphor.process(StdinInput.new)
+    metaphor.call(StdinInput.new)
 
 
 Classes used for input must respond to #get and return an array of headers
@@ -67,16 +68,16 @@ and the message body:
       end
     end
 
-Classes used as processors must respond to #process(headers, body):
+Classes used as processors must respond to #call(headers, body):
 
     class PrintMessage
-      def process(headers, body)
+      def call(headers, body)
         puts "Headers: #{headers.inspect}"
         puts "Body   : #{body.inspect}"
       end
     end
 
-The return value of #process control what happens to the message. If the
+The return value of #call controls what happens to the message. If the
 processor returns:
 
   * An array of headers and the message body

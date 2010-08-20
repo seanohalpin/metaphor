@@ -5,7 +5,7 @@ class Metaphor
         @target = target
       end
 
-      def process(headers, body)
+      def call(headers, body)
         headers.each_pair do |header, value|
           @target.puts "#{header}:#{value}"
         end

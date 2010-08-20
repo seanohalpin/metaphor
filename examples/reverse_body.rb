@@ -8,7 +8,7 @@ require 'metaphor/input/stdin_input'
 require 'metaphor/processor/print_message'
 
 class Reverse
-  def process(headers, body)
+  def call(headers, body)
     [ headers, body.reverse ]
   end
 end

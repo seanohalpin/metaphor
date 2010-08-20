@@ -8,7 +8,7 @@ describe Metaphor do
   it "allows adding processors" do
     m = Metaphor.new
     lambda {
-      m.processors << Class.new do; def process(*args); end; end
+      m.processors << Class.new do; def call(*args); end; end
     }.should_not raise_error
   end
 
@@ -18,24 +18,24 @@ describe Metaphor do
       message = [ { 'message-id' => 'whatever' }, "message body" ]
       processing = sequence('processing')
       a = stub_everything('Processor A')
-      a.expects(:process).once.with(*message).in_sequence(processing)
+      a.expects(:call).once.with(*message).in_sequence(processing)
       b = stub_everything('Processor B')
-      b.expects(:process).once.with(*message).in_sequence(processing)
+      b.expects(:call).once.with(*message).in_sequence(processing)
       m.processors << a
       m.processors << b
-      m.process(*message)
+      m.call(*message)
     end
 
     describe "if a processor returns a boolean false" do
       it "stops processing the message and discards it" do
         m = Metaphor.new
         processor_a = stub_everything('Halting Processor')
-        processor_a.expects(:process).once.returns(false)
+        processor_a.expects(:call).once.returns(false)
         processor_b = stub_everything('Unreachable Processor')
-        processor_b.expects(:process).never
+        processor_b.expects(:call).never
         m.processors << processor_a
         m.processors << processor_b
-        m.process({}, "").should be_false
+        m.call({}, "").should be_false
       end
     end
 
@@ -44,12 +44,12 @@ describe Metaphor do
         m = Metaphor.new
         new_message = [ [], "new body" ]
         processor_a = stub_everything('Mutating Processor')
-        processor_a.expects(:process).once.returns(new_message)
+        processor_a.expects(:call).once.returns(new_message)
         processor_b = stub_everything('Next Processor')
-        processor_b.expects(:process).once.with(*new_message)
+        processor_b.expects(:call).once.with(*new_message)
         m.processors << processor_a
         m.processors << processor_b
-        m.process({}, "").should == new_message
+        m.call({}, "").should == new_message
       end
     end
 
@@ -58,7 +58,7 @@ describe Metaphor do
         @count ||= 0
         @count += 1
         processor = stub_everything("Generic Processor #{@count}")
-        processor.expects(:process).once.with(*message).returns(return_value)
+        processor.expects(:call).once.with(*message).returns(return_value)
         processor
       end
 
@@ -70,7 +70,7 @@ describe Metaphor do
         m.processors << generic_processor("maybe", message)
         m.processors << generic_processor(12345, message)
         m.processors << generic_processor(Object.new, message)
-        m.process(*message).should == message
+        m.call(*message).should == message
       end
     end
   end
@@ -81,12 +81,12 @@ describe Metaphor do
       m1 = [ { 'message-id' => 1 }, "message 1" ]
       m2 = [ { 'message-id' => 2 }, "message 2" ]
       processor = stub_everything('Processor')
-      processor.expects(:process).once.with(*m1)
-      processor.expects(:process).once.with(*m2)
+      processor.expects(:call).once.with(*m1)
+      processor.expects(:call).once.with(*m2)
       m.processors << processor
       input = stub_everything('Input')
       input.expects(:get).times(3).returns(m1, m2, nil)
-      m.process(input)
+      m.call(input)
     end
   end
 end

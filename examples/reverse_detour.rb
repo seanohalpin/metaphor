@@ -25,7 +25,7 @@ require 'metaphor/processor/detour'
 include Metaphor::Processor
 
 class Reverse
-  def process(headers, body)
+  def call(headers, body)
     [ headers, body.reverse ]
   end
 end

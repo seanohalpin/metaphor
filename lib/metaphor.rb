@@ -6,7 +6,7 @@ class Metaphor
     self.processors = []
   end
 
-  def process(*args)
+  def call(*args)
     case args.size
     when 1
       while message = args.first.get
@@ -20,7 +20,7 @@ class Metaphor
   private
   def process_message(headers, body)
     processors.each do |processor|
-      processor_output = processor.process(headers, body)
+      processor_output = processor.call(headers, body)
       case
       when processor_output === false
         return false

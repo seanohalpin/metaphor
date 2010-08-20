@@ -21,6 +21,6 @@ describe Metaphor::Processor::PrintMessage do
     stdout.expects(:puts).once.with().in_sequence(h).in_sequence(o)
     stdout.expects(:puts).once.with(body).in_sequence(b).in_sequence(o)
     stdout.expects(:puts).once.with().in_sequence(b).in_sequence(o)
-    processor.process(headers, body)
+    processor.call(headers, body)
   end
 end

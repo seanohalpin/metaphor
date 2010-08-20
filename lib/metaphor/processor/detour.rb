@@ -21,8 +21,8 @@ class Metaphor
         @active
       end
 
-      def process(headers, body)
-        active_processor.process headers, body
+      def call(headers, body)
+        active_processor.call headers, body
       end
 
       private

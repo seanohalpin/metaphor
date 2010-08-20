@@ -19,9 +19,9 @@ class Metaphor
         @active = false
       end
 
-      def process(headers, body)
-        @wiretap.process(headers, body) if active?
-        @default.process(headers, body)
+      def call(headers, body)
+        @wiretap.call(headers, body) if active?
+        @default.call(headers, body)
       end
     end
   end

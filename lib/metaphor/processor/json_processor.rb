@@ -5,7 +5,7 @@ class Metaphor
         require 'json'
       end
 
-      def process(headers, body)
+      def call(headers, body)
         result = JSON[body]
         headers['content-type'] = case result
         when Hash:   'application/x-ruby'
