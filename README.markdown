@@ -15,28 +15,6 @@ to use way of passing results, leaving you to concentrate on the bit
 that's important - the business logic.
 
 
-Running Metaphor
-----------------
-
-Use from the command line:
-
-    metaphor --processor /path/to/foo.rb \
-             --processor /path/to/bar.rb \
-             --processor /path/to/baz.rb \
-             --processor stdout
-             /path/to/stdin_input.rb
-
-The last argument here is for the input source.
-
-If a full path is not given for processors, metaphor will look in
-lib/metaphor/processor for a file called eg print_message.rb.
-Processors are run in the order that they are defined on the command
-line.
-
-If you are writing your own processors, check out the Programming with
-Metaphor section below.
-
-
 Programming with Metaphor
 -------------------------
 
