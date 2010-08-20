@@ -20,7 +20,7 @@ describe Metaphor::Processor::Detour do
 
   describe "when inactive" do
     it "routes messages to the default destination" do
-      message = [ { 'x-test' => 'default' }, "test message"]
+      message = [ { 'x-test' => 'default' }, "test message" ]
       @detour_destination.expects(:process).never
       @default_destination.expects(:process).once.with(*message)
       @detour.process(*message)
@@ -33,7 +33,7 @@ describe Metaphor::Processor::Detour do
     end
 
     it "routes messages to the detour destination" do
-      message = [ { 'x-test' => 'detour' }, "test message"]
+      message = [ { 'x-test' => 'detour' }, "test message" ]
       @detour_destination.expects(:process).once.with(*message)
       @detour.process(*message)
     end

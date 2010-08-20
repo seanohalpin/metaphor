@@ -1,7 +1,7 @@
 require 'spec_helper'
-require 'metaphor/processor/stdout_processor'
+require 'metaphor/processor/print_message'
 
-describe Metaphor::Processor::StdoutProcessor do
+describe Metaphor::Processor::PrintMessage do
   it "should output the headers and body to STDOUT" do
     headers = {
       'header-1' => 'value-1',
@@ -11,7 +11,7 @@ describe Metaphor::Processor::StdoutProcessor do
     body = "example message body"
 
     stdout = stub_everything('STDOUT')
-    processor = Metaphor::Processor::StdoutProcessor.new(stdout)
+    processor = Metaphor::Processor::PrintMessage.new(stdout)
     o = sequence('output')
     h = sequence('headers')
     b = sequence('body')

@@ -29,7 +29,7 @@ Use from the command line:
 The last argument here is for the input source.
 
 If a full path is not given for processors, metaphor will look in
-lib/metaphor/processor for a file called eg stdout_processor.rb.
+lib/metaphor/processor for a file called eg print_message.rb.
 Processors are run in the order that they are defined on the command
 line.
 
@@ -43,7 +43,7 @@ Programming with Metaphor
     metaphor.processors << Foo.new
     metaphor.processors << Bar.new
     metaphor.processors << Baz.new
-    metaphor.processors << Metaphor::Processor::StdoutProcessor.new
+    metaphor.processors << Metaphor::Processor::PrintMessage.new
 
     # Process one message
     metaphor.process(headers, body) # => [ new_headers, new_body ]
@@ -69,7 +69,7 @@ and the message body:
 
 Classes used as processors must respond to #process(headers, body):
 
-    class StdoutProcessor
+    class PrintMessage
       def process(headers, body)
         puts "Headers: #{headers.inspect}"
         puts "Body   : #{body.inspect}"

@@ -20,7 +20,7 @@ describe Metaphor::Processor::Wiretap do
 
   describe "when inactive" do
     it "routes messages to only the default destination" do
-      message = [ { 'x-test' => 'default' }, "test message"]
+      message = [ { 'x-test' => 'default' }, "test message" ]
       @wiretap_destination.expects(:process).never
       @default_destination.expects(:process).once.with(*message)
       @wiretap.process(*message)
@@ -33,7 +33,7 @@ describe Metaphor::Processor::Wiretap do
     end
 
     it "routes the same message to both destinations" do
-      message = [ { 'x-test' => 'wiretap' }, "test message"]
+      message = [ { 'x-test' => 'wiretap' }, "test message" ]
       wiretaped_message = [ { 'x-test' => 'wiretaped' }, "wiretaped test message" ]
       route = sequence('route')
       @wiretap_destination.expects(:process).once.with(*message).in_sequence(route).returns(wiretaped_message)

@@ -5,7 +5,7 @@ require 'bundler'
 Bundler.setup
 require 'metaphor'
 require 'metaphor/input/stdin_input'
-require 'metaphor/processor/stdout_processor'
+require 'metaphor/processor/print_message'
 
 class Reverse
   def process(headers, body)
@@ -15,5 +15,5 @@ end
 
 m = Metaphor.new
 m.processors << Reverse.new
-m.processors << Metaphor::Processor::StdoutProcessor.new
+m.processors << Metaphor::Processor::PrintMessage.new
 m.process Metaphor::Input::StdinInput.new

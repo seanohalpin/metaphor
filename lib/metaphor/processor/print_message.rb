@@ -1,6 +1,6 @@
 class Metaphor
   module Processor
-    class StdoutProcessor
+    class PrintMessage
       def initialize(target = STDOUT)
         @target = target
       end

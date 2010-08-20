@@ -1,6 +1,6 @@
 # The Metaphor set up here looks something like:
 #
-# [ StdinInput ] -> [ Detour ] -> [ StdoutProcessor ]
+# [ StdinInput ] -> [ Detour ] -> [ PrintMessage ]
 #                        \                  /
 #                         \-> [ Reverse ] -/
 #
@@ -19,7 +19,7 @@ require 'bundler'
 Bundler.setup
 require 'metaphor'
 require 'metaphor/input/stdin_input'
-require 'metaphor/processor/stdout_processor'
+require 'metaphor/processor/print_message'
 require 'metaphor/processor/detour'
 
 include Metaphor::Processor
@@ -30,7 +30,7 @@ class Reverse
   end
 end
 
-stdout = StdoutProcessor.new
+stdout = PrintMessage.new
 reverse = Reverse.new
 detour = Detour.new stdout, reverse
 
