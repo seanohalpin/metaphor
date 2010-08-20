@@ -18,7 +18,6 @@ Gem::Specification.new do |s|
   s.required_rubygems_version = ">= 1.3.6"
   s.rubyforge_project         = "metaphor"
 
-  s.files        = Dir.glob("{bin,lib}/**/*") + %w(LICENSE README.markdown)
-  s.executables  = %w(metaphor)
+  s.files        = Dir.glob("lib/**/*") + %w(LICENSE README.markdown)
   s.require_path = 'lib'
 end

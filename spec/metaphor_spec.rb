@@ -1,8 +1,8 @@
 require 'spec_helper'
 
 describe Metaphor do
-  it "is version 0.2.0" do
-    Metaphor::VERSION.should eql('0.2.0')
+  it "is version 0.2.1" do
+    Metaphor::VERSION.should eql('0.2.1')
   end
 
   it "allows adding processors" do
