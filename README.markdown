@@ -66,6 +66,7 @@ processor returns:
     - Metaphor passes the same headers and message that were passed into
       this processor to the next processor in the chain
 
+
 Contributing
 ------------
 
