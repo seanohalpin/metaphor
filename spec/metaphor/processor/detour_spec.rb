@@ -20,10 +20,10 @@ describe Metaphor::Processor::Detour do
 
   describe "when inactive" do
     it "routes messages to the default destination" do
-      message = [ { 'x-test' => 'default' }, "test message" ]
+      message = "test message"
       @detour_destination.expects(:call).never
-      @default_destination.expects(:call).once.with(*message)
-      @detour.call(*message)
+      @default_destination.expects(:call).once.with(message)
+      @detour.call(message)
     end
   end
 
@@ -33,18 +33,18 @@ describe Metaphor::Processor::Detour do
     end
 
     it "routes messages to the detour destination" do
-      message = [ { 'x-test' => 'detour' }, "test message" ]
-      @detour_destination.expects(:call).once.with(*message)
-      @detour.call(*message)
+      message = "test message"
+      @detour_destination.expects(:call).once.with(message)
+      @detour.call(message)
     end
 
     it "routes the detoured message to the default destination after the detour" do
-      message = [ { 'x-test' => 'detour' }, "test message"]
-      detoured_message = [ { 'x-test' => 'detoured'}, "detoured test message" ]
+      message = "test message"
+      detoured_message = "detoured test message"
       route = sequence('route')
-      @detour_destination.expects(:call).once.with(*message).in_sequence(route).returns(detoured_message)
-      @default_destination.expects(:call).once.with(*detoured_message).in_sequence(route)
-      @detour.call(*message)
+      @detour_destination.expects(:call).once.with(message).in_sequence(route).returns(detoured_message)
+      @default_destination.expects(:call).once.with(detoured_message).in_sequence(route)
+      @detour.call(message)
     end
 
     it "can be deactivated" do

@@ -19,9 +19,9 @@ class Metaphor
         @active = false
       end
 
-      def call(headers, body)
-        @wiretap.call(headers, body) if active?
-        @default.call(headers, body)
+      def call message
+        @wiretap.call(message) if active?
+        @default.call(message)
       end
     end
   end

@@ -5,13 +5,8 @@ class Metaphor
         @target = target
       end
 
-      def call(headers, body)
-        headers.each_pair do |header, value|
-          @target.puts "#{header}:#{value}"
-        end
-        @target.puts
-        @target.puts body
-        @target.puts
+      def call message
+        @target.puts message
       end
     end
   end

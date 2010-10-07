@@ -20,10 +20,10 @@ describe Metaphor::Processor::Wiretap do
 
   describe "when inactive" do
     it "routes messages to only the default destination" do
-      message = [ { 'x-test' => 'default' }, "test message" ]
+      message = "test message"
       @wiretap_destination.expects(:call).never
-      @default_destination.expects(:call).once.with(*message)
-      @wiretap.call(*message)
+      @default_destination.expects(:call).once.with(message)
+      @wiretap.call(message)
     end
   end
 
@@ -33,17 +33,16 @@ describe Metaphor::Processor::Wiretap do
     end
 
     it "routes the same message to both destinations" do
-      message = [ { 'x-test' => 'wiretap' }, "test message" ]
-      wiretaped_message = [ { 'x-test' => 'wiretaped' }, "wiretaped test message" ]
+      message = "test message"
       route = sequence('route')
-      @wiretap_destination.expects(:call).once.with(*message).in_sequence(route).returns(wiretaped_message)
-      @default_destination.expects(:call).once.with(*message).in_sequence(route)
-      @wiretap.call(*message)
+      @wiretap_destination.expects(:call).once.with(message).in_sequence(route)
+      @default_destination.expects(:call).once.with(message).in_sequence(route)
+      @wiretap.call(message)
     end
 
     it "can be deactivated" do
       @wiretap.deactivate
-      @wiretap.should_not be_active      
+      @wiretap.should_not be_active
     end
   end
 

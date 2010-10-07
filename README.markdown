@@ -25,47 +25,42 @@ Programming with Metaphor
     metaphor.processors << Metaphor::Processor::PrintMessage.new
 
     # Process one message
-    metaphor.call(headers, body) # => [ new_headers, new_body ]
-                                 # => false (if halted by processor)
+    metaphor.call("Hello, Metaphor!") # => "Hello, Metaphor!"
+                                      # => false (if halted by processor)
 
     # Process messages from this class until the Ruby VM is killed or the
     # input returns nil
     metaphor.call(StdinInput.new)
 
 
-Classes used for input must respond to #get and return an array of headers
-and the message body:
+Classes used for input must respond to #gets and return a String (or at
+least something that quacks like a String):
 
     class StdinInput
-      def get
-        # return an array like this:
-        [
-          { "header" => "value", ... }, # Message headers
-          "body"                        # Message body
-        ]
+      def gets
+        line = STDIN.gets
+        line == "" ? nil : line
       end
     end
 
 Classes used as processors must respond to #call(headers, body):
 
     class PrintMessage
-      def call(headers, body)
-        puts "Headers: #{headers.inspect}"
-        puts "Body   : #{body.inspect}"
+      def call(message)
+        puts "Message : #{message.inspect}"
       end
     end
 
 The return value of #call controls what happens to the message. If the
 processor returns:
 
-  * An array of headers and the message body
-    - they are passed to the next processor
-  * Boolean false (or something that is === to it)
+  * false
     - Metaphor stops processing this message and discards it
-  * Any other value that is not false
-    - Metaphor passes the same headers and message that were passed into
-      this processor to the next processor in the chain
-
+  * nil
+    - Metaphor passes the same object that were passed into the processor to the
+      next processor in the chain
+  * Anything else
+    - Metaphor passes this to the next processor
 
 Contributing
 ------------

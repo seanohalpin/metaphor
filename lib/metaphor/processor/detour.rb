@@ -21,8 +21,8 @@ class Metaphor
         @active
       end
 
-      def call(headers, body)
-        active_processor.call headers, body
+      def call message
+        active_processor.call message
       end
 
       private
